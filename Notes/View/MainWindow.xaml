@@ -1,0 +1,69 @@
+﻿<Window x:Class="Notes.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Notes"
+        mc:Ignorable="d"
+        Title="Notes" Height="500" Width="900" WindowStartupLocation="CenterScreen">
+    <Grid Background="#d6e6f2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="18*"/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="btnAdd" Grid.Column="0" Grid.Row="0"  Content="Добавить запись" Background="#b9d7ea" BorderBrush="#769fcd" Command="{Binding AddCommand}" Margin="10,10,10,10" Cursor="Pen">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Button x:Name="btnRemove" Grid.Column="1" Grid.Row="0" Content="Удалить запись" Background="#b9d7ea" BorderBrush="#769fcd" Command="{Binding RemoveCommand}" Margin="10,10,10,10">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Button x:Name="btnSave" Grid.Column="2" Grid.Row="0" Content="Сохранить изменения" Background="#b9d7ea" BorderBrush="#769fcd" Command="{Binding SaveCommand}" Margin="10,10,10,10">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <ListBox x:Name="Notes" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Background="#b9d7ea" Padding="10,0,10,20" ItemsSource="{Binding NotesList}" SelectedItem="{Binding CurrentNote}" Margin="10, 0, 0, 30">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Background" Value="#d6e6f2"/>
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="FontSize" Value="14"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+
+        <TextBox x:Name="Name" AcceptsReturn="False" Text="{Binding CurrentNote.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Background="#f7fbfc" BorderBrush="Black" UndoLimit="1000" TextAlignment="Justify" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" Margin="10, 0, 20, 0">
+            <TextBox.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding SaveNote}" />
+            </TextBox.InputBindings>
+        </TextBox>
+
+        <TextBox x:Name="Description" AcceptsReturn="False"  Text="{Binding CurrentNote.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Background="#f7fbfc" BorderBrush="Black" UndoLimit="1000" TextAlignment="Justify" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" Margin="10, 10, 20, 30">
+            <TextBox.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding SaveNote}" />
+            </TextBox.InputBindings>
+        </TextBox>
+
+    </Grid>
+</Window>
